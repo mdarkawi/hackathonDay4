@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {first} from "rxjs/operators";
 import {AccountService} from "../services/account.service";
+import {AlertService} from "../services/alert.service";
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,8 @@ export class SignupComponent implements OnInit {
   public loading: boolean;
   constructor(
     public formBuilder: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private alertService:AlertService
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class SignupComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+          this.alertService.success('Registration successful', { keepAfterRouteChange: true });
           //this.router.navigate(['../login'], { relativeTo: this.route });
         },
         error => {

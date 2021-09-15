@@ -1,12 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
+import { Observable, of} from "rxjs";
 
-@Controller()
+@Controller('user/')
 export class UsersController {
     constructor() {}
 
-    @Get()
-    getHello(): string {
+    @Get('login')
+    login(): string {
         return 'user controller';
+    }
+    @Post('register')
+    register(): Observable<any> {
+        return of('user controller');
     }
 
 }

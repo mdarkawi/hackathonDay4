@@ -10,8 +10,5 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get(':id')
-  getHelloId(): string {
-    return this.appService.getHelloId();
-  }
+
 }

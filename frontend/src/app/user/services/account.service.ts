@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,14 +10,22 @@ import { User } from '../user.interface';
 export class AccountService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
-  private apiUrl = 'localhost:3000'; //TODO à confirgurer par environnement
+  private apiUrl = 'http://localhost:3001'; //TODO à confirgurer par environnement
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) {
   }
 
   login(username, password) {
-    return this.http.post<User>(`${this.apiUrl}/users/authenticate`, { username, password })
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*');
+
+    const httpOptions = {
+      headers: headers
+    };
+
+    return this.http.post<User>(`${this.apiUrl}/users/authenticate`, { username, password }, httpOptions)
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('user', JSON.stringify(user));
@@ -34,7 +42,7 @@ export class AccountService {
   }
 
   register(user: User) {
-    return this.http.post(`${this.apiUrl}/users/register`, user);
+    return this.http.post(`${this.apiUrl}/user/register`,user);
   }
 
 }
