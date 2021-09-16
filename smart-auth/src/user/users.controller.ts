@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import { Observable, of} from "rxjs";
 import {UserDto} from "./user.dto";
 import {UserService} from "./user.service";
@@ -13,6 +13,8 @@ export class UserController {
     login(): string {
         return 'user controller';
     }
+
+    @UsePipes(new ValidationPipe())
     @Post('register')
     register(@Body() user: UserDto): Observable<any> {
         return this.userService.create(user);

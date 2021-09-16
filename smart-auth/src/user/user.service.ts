@@ -4,6 +4,7 @@ import {from, Observable} from "rxjs";
 import {User} from "../entities/user";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,9 @@ export class UserService {
         const user = new User();
         user.firstName = _.username;
         user.email = _.email;
-        user.password = _.password;// TODO hashing missing
+        const hash:string = bcrypt.hashSync(_.password, 10);
+        user.password = hash;
+
         return from(this.userRepository.save(user));
     }
 }
