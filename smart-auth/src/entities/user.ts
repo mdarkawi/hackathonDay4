@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {IsEmail} from "class-validator";
 
-@Entity()
+@Entity('user')
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -8,9 +9,10 @@ export class User {
     @Column()
     firstName: string;
 
+    @IsEmail()
     @Column()
-    lastName: string;
+    email: string;
 
     @Column({ default: true })
-    isActive: boolean;
+    password: string;
 }
