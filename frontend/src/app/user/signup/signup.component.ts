@@ -24,12 +24,12 @@ export class SignupComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: this.formBuilder.control(null, [Validators.required]),
       email: this.formBuilder.control(null, [Validators.required]),
-      password1: this.formBuilder.control(null, [Validators.required]),
+      password: this.formBuilder.control(null, [Validators.required]),
       password2: this.formBuilder.control(null, [Validators.required]),
     });
   }
-  public get password1(): AbstractControl {
-    return this.form.get('password1');
+  public get password(): AbstractControl {
+    return this.form.get('password');
   }
   public get password2(): AbstractControl {
     return this.form.get('password2');

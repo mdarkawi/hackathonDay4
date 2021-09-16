@@ -9,12 +9,12 @@
     <small  class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
-    <label for="password1">Password</label>
-    <input formControlName="password1" type="password" class="form-control"  placeholder="Password">
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" class="form-control"  placeholder="Password">
   </div>
   <div class="form-group">
     <label for="password2">Confirm password</label>
     <input formControlName="password2" type="password" class="form-control"  placeholder="Confirm password">
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid || password1.invalid || password2.invalid || (password1.value != password2.value) ">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid || password.invalid || password2.invalid || (password.value != password2.value) ">Submit</button>
 </form>
