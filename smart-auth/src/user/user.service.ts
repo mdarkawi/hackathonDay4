@@ -5,19 +5,22 @@ import {User} from "../entities/user";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
 import * as bcrypt from "bcrypt";
+import { AuthService} from "../auth/auth.service";
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
+    constructor(
+        @InjectRepository(User) private readonly userRepository: Repository<User>,
+        private authService: AuthService
+                ) {}
 
 
     public read(_: UserDto): Observable<User> {
         return from(this.userRepository.find({email: _.email }))
             .pipe(
                 map((user: User[]) => {
-
-                    if(user[0] && bcrypt.compareSync(_.password, user[0].password)) {
+                    if(user[0] && this.authService.validateUser(_.password, user[0].password)) {
                         return user[0];
                     } else {
                         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
