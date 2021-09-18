@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AccountService} from "../services/account.service";
+import {userError} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-signin',
@@ -10,15 +12,21 @@ export class SigninComponent implements OnInit {
 
   public form: FormGroup;
   constructor(
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private accountService: AccountService,
   ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      username: this.formBuilder.control(null, [Validators.required]),
       email: this.formBuilder.control(null, [Validators.required]),
-      password1: this.formBuilder.control(null, [Validators.required]),
+      password: this.formBuilder.control(null, [Validators.required]),
     });
   }
 
+
+
+  public onSubmit(event) {
+    event.preventDefault();
+    this.accountService.login(this.form.get('email').value, this.form.get('password').value).subscribe();
+  }
 }

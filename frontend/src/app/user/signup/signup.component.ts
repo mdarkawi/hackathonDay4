@@ -38,14 +38,6 @@ export class SignupComponent implements OnInit {
     event.preventDefault();
     console.log(this.form);
 
-    this.loading = false;
-
-
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
-
     this.loading = true;
     this.accountService.register(this.form.value)
       .pipe(first())
