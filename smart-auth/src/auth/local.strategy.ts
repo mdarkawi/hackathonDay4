@@ -12,7 +12,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         super({ usernameField: 'email' });
     }
     validate(email: string, password: string): Observable<User> {
-        console.log(email, password);
         return this.authService.validateUser(email, password)
             .pipe(
                 map((user: User)=> {

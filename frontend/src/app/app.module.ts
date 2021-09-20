@@ -10,6 +10,8 @@ import { AccountComponent } from './user/account/account.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AccountService} from "./user/services/account.service";
 import {HttpClientModule} from "@angular/common/http";
+import { ArticlesComponent } from './articles/articles.component';
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -17,13 +19,15 @@ import {HttpClientModule} from "@angular/common/http";
     SignupComponent,
     SigninComponent,
     AccountComponent,
+    ArticlesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbNavModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   providers: [
     AccountService

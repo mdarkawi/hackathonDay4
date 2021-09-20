@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../services/account.service";
 import {userError} from "@angular/compiler-cli/src/transformers/util";
+import {tap} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signin',
@@ -14,6 +16,7 @@ export class SigninComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private accountService: AccountService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +30,10 @@ export class SigninComponent implements OnInit {
 
   public onSubmit(event) {
     event.preventDefault();
-    this.accountService.login(this.form.get('email').value, this.form.get('password').value).subscribe();
+    this.accountService.login(this.form.get('email').value, this.form.get('password').value)
+      .pipe(
+        tap(()=> this.router.navigate(['/articles']))
+      )
+      .subscribe();
   }
 }

@@ -1,5 +1,4 @@
 import {Controller, Get, Post, Request, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
-import { AppService } from './app.service';
 import {LocalAuthGuard} from "./auth/local-auth.guard";
 import {ApiResponse} from "@nestjs/swagger";
 import {AuthService} from "./auth/auth.service";
@@ -14,6 +13,9 @@ export class AppController {
   @Post('auth/login')
   login(@Request() req) {
     return this.authService.generateToken(req.user);
+  }
+  getHello() {
+    return 'Hello World!';
   }
 
 

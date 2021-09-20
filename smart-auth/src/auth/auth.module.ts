@@ -10,7 +10,8 @@ dotenv.config();
 @Module({
     imports: [
         PassportModule.register({
-            defaultStrategy: 'jwt'
+            defaultStrategy: 'jwt',
+            session: true
         }),
         JwtModule.register({
             secret: process.env.SECRET,
