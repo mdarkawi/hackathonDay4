@@ -9,6 +9,9 @@ import {
     BeforeInsert, BeforeUpdate, UpdateDateColumn
 } from 'typeorm';
 import { IsEmail, IsNotEmpty} from "class-validator";
+import {Comment} from "./comment";
+import {Article} from "./article";
+import {Reaction} from "./reaction";
 
 @Entity('user')
 export class User {
@@ -52,5 +55,15 @@ export class User {
     public updateDateUpdatedAt() {
         this.updatedAt = new Date();
     }
+
+    @OneToMany(type => Comment, comment => comment.user, {cascade: true})
+    @JoinTable()
+    comments: Comment[]
+
+    @OneToMany(type => Article, article => article.user, {cascade: true})
+    articles: Article[]
+
+    @OneToMany( type => Reaction, reaction => reaction.user)
+    reactions: Reaction[]
 
 }
